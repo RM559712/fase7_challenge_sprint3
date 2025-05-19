@@ -10,11 +10,10 @@
 
 ## 👨‍👩 Grupo
 
-Grupo de número <b>5</b> formado pelos integrantes mencionados abaixo.
+Grupo de número <b>46</b> formado pelos integrantes mencionados abaixo.
 
 ## 👨‍🎓 Integrantes: 
 - <a href="https://www.linkedin.com/in/cirohenrique/">Ciro Henrique</a> ( <i>RM559040</i> )
-- <a href="javascript:void(0)">Enyd Bentivoglio</a> ( <i>RM560234</i> )
 - <a href="https://www.linkedin.com/in/marcofranzoi/">Marco Franzoi</a> ( <i>RM559468</i> )
 - <a href="https://www.linkedin.com/in/rodrigo-mazuco-16749b37/">Rodrigo Mazuco</a> ( <i>RM559712</i> )
 
@@ -60,4 +59,4 @@ Esse projeto não possui parte técnica para execução.
 
 ## 📋 Licença
 
-Desenvolvido pelo Grupo 5 para o projeto da fase 6 (<i>Enterprise Challenge - Sprint 3 - Ingredion</i>) da <a rel="cc:attributionURL dct:creator" property="cc:attributionName" href="https://fiap.com.br">Fiap</a>. Está licenciado sobre <a href="http://creativecommons.org/licenses/by/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">Attribution 4.0 International</a>.</p>
+Desenvolvido pelo Grupo 46 para o projeto da fase 6 (<i>Enterprise Challenge - Sprint 3 - Ingredion</i>) da <a rel="cc:attributionURL dct:creator" property="cc:attributionName" href="https://fiap.com.br">Fiap</a>. Está licenciado sobre <a href="http://creativecommons.org/licenses/by/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">Attribution 4.0 International</a>.</p>
