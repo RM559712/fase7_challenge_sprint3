@@ -65,17 +65,18 @@ Referência do desafio: [Link para o enunciado](https://on.fiap.com.br/mod/assig
 
 ## 📁 Estrutura de Pastas
 
-FASE7_CHALLENGE_SPRINT3/
-├── assets/
-│ ├── graficos/ # Gráficos gerados pela análise
-│ └── images/ # Imagens auxiliares (ex: logo)
-├── config/ # Arquivos JSON de configuração
-├── document/
-│ └── relatorios/ # Relatório técnico (PDF e DOCX)
-├── scripts/ # Scripts utilitários
-├── src/ # Código-fonte da análise
-├── requirements.txt # Bibliotecas Python utilizadas
-└── README.md # Este arquivo
+- `FASE7_CHALLENGE_SPRINT3/`
+  - `assets/` – Arquivos complementares
+    - `graficos/` – Gráficos gerados pela análise
+    - `images/` – Imagens auxiliares (ex: logo da FIAP)
+  - `config/` – Arquivos de configuração (.json, .env etc.)
+  - `document/` – Documentos do projeto
+    - `relatorios/` – Relatório técnico (PDF e DOCX)
+  - `scripts/` – Scripts utilitários (ex: download, exportação)
+  - `src/` – Código-fonte principal da análise (tratamento, regressão, gráficos)
+  - `requirements.txt` – Lista de bibliotecas Python utilizadas
+  - `README.md` – Este arquivo com a documentação do projeto
+
 
 ### 📈 Resultados e Entregáveis
 
