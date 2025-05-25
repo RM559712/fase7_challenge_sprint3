@@ -1,62 +1,124 @@
 # FIAP - Faculdade de Informática e Administração Paulista
 
 <p align="center">
-<a href= "https://www.fiap.com.br/"><img src="assets/images/logo-fiap.png" alt="FIAP - Faculdade de Informática e Admnistração Paulista" border="0" width=40% height=40%></a>
+<a href="https://www.fiap.com.br/">
+  <img src="assets/images/logo-fiap.png" alt="FIAP - Faculdade de Informática e Administração Paulista" border="0" width="40%" height="40%">
+</a>
 </p>
 
-<br>
+---
 
-# Enterprise Challenge - Sprint 3 - Ingredion
+# 🧠 Enterprise Challenge - Sprint 3 - Ingredion  
+## Validação do Modelo de IA com Dados Reais de Produtividade Agrícola
+
+---
 
 ## 👨‍👩 Grupo
 
-Grupo de número <b>46</b> formado pelos integrantes mencionados abaixo.
+Grupo de número **46** formado pelos integrantes mencionados abaixo.
 
-## 👨‍🎓 Integrantes: 
-- <a href="https://www.linkedin.com/in/cirohenrique/">Ciro Henrique</a> ( <i>RM559040</i> )
-- <a href="https://www.linkedin.com/in/marcofranzoi/">Marco Franzoi</a> ( <i>RM559468</i> )
-- <a href="https://www.linkedin.com/in/rodrigo-mazuco-16749b37/">Rodrigo Mazuco</a> ( <i>RM559712</i> )
+### 👨‍🎓 Integrantes:
+- [Ciro Henrique](https://www.linkedin.com/in/cirohenrique/) – *RM559040*
+- [Marco Franzoi](https://www.linkedin.com/in/marcofranzoi/) – *RM559468*
+- [Rodrigo Mazuco](https://www.linkedin.com/in/rodrigo-mazuco-16749b37/) – *RM559712*
 
-## 👩‍🏫 Professores:
+### 👩‍🏫 Professores:
+- **Tutor:** [Leonardo Ruiz Orabona](https://www.linkedin.com/in/leonardoorabona/)
+- **Coordenador:** [André Godoi](https://www.linkedin.com/in/profandregodoi/)
 
-### Tutor(a) 
-- <a href="https://www.linkedin.com/in/leonardoorabona/">Leonardo Ruiz Orabona</a>
+---
 
-### Coordenador(a)
-- <a href="https://www.linkedin.com/in/profandregodoi/">André Godoi</a>
+## 📜 Descrição do Desafio
 
-## 📜 Descrição
+Nesta Sprint, o grupo teve como missão **validar o modelo de IA desenvolvido na Sprint 2**, comparando as previsões de produtividade agrícola baseadas em NDVI com **dados reais históricos** obtidos de fontes públicas como IBGE e CONAB.
 
-<b>Referência</b>: https://on.fiap.com.br/mod/assign/view.php?id=488636&c=13085
+Foram aplicadas técnicas estatísticas para medir a aderência entre as previsões do modelo e os dados reais, utilizando correlação, regressão e análise gráfica.
 
-<i>Pendente...</i>
+Referência do desafio: [Link para o enunciado](https://on.fiap.com.br/mod/assign/view.php?id=488636&c=13085)
 
-## 📁 Estrutura de pastas
+---
 
-Dentre os arquivos e pastas presentes na raiz do projeto, definem-se:
+## 🔬 Metodologia
 
-1. <b>assets</b>: Diretório para armazenamento de arquivos complementares da estrutura do sistema.
-    - Diretório "images": Diretório para armazenamento de imagens.
+1. **Coleta de Dados Reais**
+   - Cultura analisada: **Cana-de-açúcar**
+   - Fontes: IBGE, CONAB
 
-2. <b>config</b>: Diretório para armazenamento de arquivos em formato <i>json</i> contendo configurações.
+2. **Tratamento de Dados**
+   - Alinhamento temporal com os dados de NDVI
+   - Normalização e organização por safra
 
-3. <b>document</b>: Diretório para armazenamento de documentos relacionados ao sistema.
+3. **Análise Estatística**
+   - Correlação de Pearson e Spearman
+   - Regressão linear simples
+   - Coeficiente de determinação (R²)
 
-4. <b>scripts</b>: Diretório para armazenamento de scripts.
+4. **Visualização**
+   - Geração de gráficos de dispersão
+   - Comparação entre NDVI médio e produtividade real
 
-5. <b>src</b>: Diretório para armazenamento de código fonte do sistema.
+5. **Discussão Crítica**
+   - Avaliação da confiabilidade do modelo
+   - Sugestões de melhorias
 
-6. <b>tests</b>: Diretório para armazenamento de resultados de testes.
-	- Diretório "images": Diretório para armazenamento de imagens relacionadas aos testes efetuados.
+---
 
-7. <b>README.md</b>: Documentação do projeto em formato markdown.
+## 📁 Estrutura de Pastas
 
-<i><strong>Importante</strong>: A estrutura de pastas foi mantida neste formato para atender ao padrão de entrega dos projetos.</i>
+FASE7_CHALLENGE_SPRINT3/
+├── assets/
+│ ├── graficos/ # Gráficos gerados pela análise
+│ └── images/ # Imagens auxiliares (ex: logo)
+├── config/ # Arquivos JSON de configuração
+├── document/
+│ └── relatorios/ # Relatório técnico (PDF e DOCX)
+├── scripts/ # Scripts utilitários
+├── src/ # Código-fonte da análise
+├── requirements.txt # Bibliotecas Python utilizadas
+└── README.md # Este arquivo
 
-## 🔧 Como executar o código
+### 📈 Resultados e Entregáveis
 
-Esse projeto não possui parte técnica para execução.
+- 📊 **Gráficos de correlação**  
+  Localizados em: `assets/graficos/`  
+  - Gráfico de dispersão entre NDVI e produtividade real  
+  - Linha de tendência da regressão linear  
+  - Gráficos por safra ou por região (se aplicável)
 
-## 📋 Licença
+- 📝 **Relatório Técnico Final**  
+  Local: `document/relatorios/relatorio_sprint3.pdf`  
+  Conteúdo:
+  - Metodologia de coleta de dados
+  - Técnicas estatísticas utilizadas
+  - Análise dos gráficos
+  - Discussão crítica dos resultados
+  - Referências bibliográficas
 
-Desenvolvido pelo Grupo 46 para o projeto da fase 6 (<i>Enterprise Challenge - Sprint 3 - Ingredion</i>) da <a rel="cc:attributionURL dct:creator" property="cc:attributionName" href="https://fiap.com.br">Fiap</a>. Está licenciado sobre <a href="http://creativecommons.org/licenses/by/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">Attribution 4.0 International</a>.</p>
+- 💻 **Código-fonte da análise**  
+  Local: `src/analise_ndvi_cana.py`  
+  Funcionalidades:
+  - Leitura dos dados
+  - Análise estatística (correlação e regressão)
+  - Geração de gráficos e exportação
+
+- 📦 **Repositório GitHub**  
+  Contém o projeto completo, com documentação, código e relatório para reprodutibilidade.
+
+---
+
+### 📚 Referências
+
+- [IBGE – sidra.ibge.gov.br](https://sidra.ibge.gov.br)
+- [CONAB – conab.gov.br](https://www.conab.gov.br)
+- [MAPA – gov.br/agricultura](https://www.gov.br/agricultura)
+- [CEPEA/USP – cepea.esalq.usp.br](https://www.cepea.esalq.usp.br)
+
+---
+
+### 📋 Licença
+
+Desenvolvido pelo **Grupo 46** para o projeto da Fase 7  
+(*Enterprise Challenge - Sprint 3 - Ingredion*) da [FIAP](https://fiap.com.br).
+
+Este projeto está licenciado sob a licença  
+[Creative Commons Attribution 4.0 International](http://creativecommons.org/licenses/by/4.0/?ref=chooser-v1).
