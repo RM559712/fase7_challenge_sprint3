@@ -43,6 +43,9 @@ with zipfile.ZipFile(saida_zip, "w", zipfile.ZIP_DEFLATED) as zipf:
 
 print(f"✅ Arquivo ZIP gerado: {saida_zip}")
 
+# gcloud auth login 
+# gcloud config set project fabled-gist-435119-r7 
 # gsutil cp /workspace/fase7_challenge_sprint3/dados/municipios_top_cana.zip gs://earthengine_fiap/
+# earthengine authenticate
 # earthengine --project fabled-gist-435119-r7 upload table gs://earthengine_fiap/municipios_top_cana.zip   --asset_id=projects/fabled-gist-435119-r7/assets/municipios_top_cana
 # earthengine --project fabled-gist-435119-r7 task list 
