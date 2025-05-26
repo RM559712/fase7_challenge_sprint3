@@ -1,82 +1,88 @@
 import ee
 import datetime
-import uuid
+import os
+from google.cloud import storage
 
 # Inicializa Earth Engine
-ee.Initialize()
+ee.Initialize(project='fabled-gist-435119-r7')
 
-# Configurações
-bucket_name = "earthengine_fiap"
-asset_municipios = "projects/fabled-gist-435119-r7/assets/municipios_top_cana"
-timestamp = datetime.datetime.now().strftime("%d_%m_%Y_%H_%M")
-test_filename = f"temp_{timestamp}.txt"
+# Nome do bucket de destino
+BUCKET_NAME = "earthengine_fiap"
+CAMINHO_BUCKET = f"gs://{BUCKET_NAME}"
 
-# 1. Teste de permissão de escrita no bucket
-print(f"⏳ Testando permissão de escrita no bucket: gs://{bucket_name}/{test_filename}")
-teste_fc = ee.FeatureCollection([
-    ee.Feature(None, {"teste": f"verificacao_{uuid.uuid4()}"})
-])
+# Verificação de permissão: tenta criar um arquivo temporário no bucket
+def testar_bucket():
+    client = storage.Client()
+    bucket = client.bucket(BUCKET_NAME)
+    timestamp = datetime.datetime.now().strftime("%d_%m_%Y_%H_%M")
+    blob = bucket.blob(f"temp_{timestamp}.txt")
+    try:
+        blob.upload_from_string("teste de escrita no bucket")
+        print(f"📤 Teste de escrita iniciado com sucesso.")
+        return True
+    except Exception as e:
+        print(f"❌ Falha ao escrever no bucket: {e}")
+        return False
 
-test_task = ee.batch.Export.table.toCloudStorage(
-    collection=teste_fc,
-    description="Teste_Bucket_Permissao",
-    bucket=bucket_name,
-    fileNamePrefix=test_filename,
-    fileFormat="CSV"
-)
+if not testar_bucket():
+    exit("🚫 Encerrando script devido à falha de permissão no bucket.")
 
-try:
-    test_task.start()
-    print("📤 Teste de escrita iniciado com sucesso.")
-except Exception as e:
-    raise RuntimeError(f"❌ Falha ao tentar escrever no bucket: {e}")
+# Define a coleção NDVI com a nova versão MODIS 6.1
+colecao = ee.ImageCollection("MODIS/061/MOD13Q1").select("NDVI")
 
-# 2. Carrega os municípios
-municipios = ee.FeatureCollection(asset_municipios)
+# Carrega os municípios do asset
+municipios = ee.FeatureCollection("projects/fabled-gist-435119-r7/assets/municipios_top_cana")
 
-# 3. Coleção MODIS com NDVI
-colecao = ee.ImageCollection("MODIS/006/MOD13Q1").select("NDVI")
-
-# 4. Função segura para NDVI médio mensal
-def extrair_ndvi_mensal(ano, mes):
-    ini = ee.Date.fromYMD(ano, mes, 1)
-    fim = ini.advance(1, "month")
-    
-    colecao_mensal = colecao.filterDate(ini, fim)
-
-    ndvi_condicional = ee.Algorithms.If(
-        colecao_mensal.size().gt(0),
-        colecao_mensal.mean().multiply(0.0001),
-        ee.Image().select()
-    )
-
-    imagem_valida = ee.Image(ndvi_condicional)
-
-    return imagem_valida.reduceRegions(
-        collection=municipios,
-        reducer=ee.Reducer.mean(),
-        scale=250
-    ).map(lambda f: f.set("ano", ano).set("mes", mes))
-
-# 5. Loop por ano e mês
-anos = list(range(2020, 2024))
+# Define período
+anos = [2020, 2021, 2022, 2023]
 meses = list(range(1, 13))
-resultado_geral = ee.FeatureCollection([])
 
+# Lista de resultados por período
+lista_ndvi = []
+
+# Função para extrair NDVI médio por município
 for ano in anos:
     for mes in meses:
-        print(f"📆 Processando NDVI - {ano}/{mes:02}")
-        resultado_geral = resultado_geral.merge(extrair_ndvi_mensal(ano, mes))
+        data_inicio = ee.Date(f"{ano}-{mes:02d}-01")
+        data_fim = data_inicio.advance(1, "month")
 
-# 6. Exportação final para Cloud Storage
-export_task = ee.batch.Export.table.toCloudStorage(
-    collection=resultado_geral,
-    description="Exporta_NDVI_Mensal_Cana",
-    bucket=bucket_name,
-    fileNamePrefix="ndvi_mensal_cana_2020_2023",
+        print(f"📆 Processando NDVI - {ano}/{mes:02d}")
+
+        # Filtra a coleção no intervalo
+        img = colecao.filterDate(data_inicio, data_fim).mean()
+
+        # Verifica se a imagem contém bandas
+        band_names = img.bandNames().getInfo()
+        if not band_names:
+            print(f"⚠️ Sem bandas para {ano}/{mes:02d}, pulando.")
+            continue
+
+        # Reduz por regiões (média por município)
+        ndvi_por_mun = img.reduceRegions(
+            collection=municipios,
+            reducer=ee.Reducer.mean(),
+            scale=250,
+        ).map(lambda f: f.set("ano", ano).set("mes", mes))
+
+        lista_ndvi.append(ndvi_por_mun)
+
+# Junta todas as coleções em uma só
+ndvi_final = ee.FeatureCollection(lista_ndvi).flatten()
+
+# Nome do arquivo de saída
+arquivo_saida = "Exporta_NDVI_Mensal_Cana"
+timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M")
+
+# Exporta para o bucket
+tarefa = ee.batch.Export.table.toCloudStorage(
+    collection=ndvi_final,
+    description=arquivo_saida,
+    bucket=BUCKET_NAME,
+    fileNamePrefix=f"ndvi_mensal_cana_{timestamp}",
     fileFormat="CSV"
 )
 
-export_task.start()
+tarefa.start()
+
 print("✅ Exportação do NDVI mensal iniciada com sucesso.")
 print("🔍 Use 'earthengine task list' para acompanhar.")
